@@ -1,0 +1,41 @@
+{
+  "name": "tg-bot-constructor",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "keywords": [],
+  "bin": {
+    "bot": "./.bot/index.mjs"
+  },
+  "_moduleAliases": {
+    ".bot": "./dist/.bot"
+  },
+  "scripts": {
+    "build:clean": "rimraf dist",
+    "build": "node scripts/build.js",
+    "dev": "npm run build:clean && tsc-watch --onSuccess \"node ./dist/app.js\" --onFailure \"echo Compilation Failed!\"",
+    "db:mig": "prisma migrate dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "dotenv": "^16.4.5",
+    "grammy": "^1.30.0",
+    "module-alias": "^2.2.3",
+    "nodemon": "^3.1.6",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.8.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.7.1",
+    "@types/node": "^22.5.5",
+    "@types/node-fetch": "^2.6.11",
+    "eslint": "^9.10.0",
+    "prisma": "^5.20.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsc-watch": "^6.2.0",
+    "typescript": "^5.6.2"
+  }
+}
