@@ -8,11 +8,12 @@ CREATE TYPE "Roles" AS ENUM ('admin', 'user');
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL,
     "firstName" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
     "languageCode" "Languages" NOT NULL,
     "role" "Roles" NOT NULL,
     "isBot" BOOLEAN NOT NULL,
     "isPremium" BOOLEAN NOT NULL,
+    "lastName" TEXT,
+    "username" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

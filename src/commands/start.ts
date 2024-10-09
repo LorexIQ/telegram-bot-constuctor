@@ -1,8 +1,8 @@
-import { defineCommand } from '.bot/builders/command';
+import { defineCommand } from '.bot/defines/command';
 
 export default defineCommand({
   description: 'Стартовая команда',
-  isAuthRequired: true,
   addToMenu: true,
-  handler: (bot, ctx) => console.log(bot.getConfig(), ctx.authUser, 1)
+  isAuthRequired: true,
+  handler: (bot, ctx) => console.log(bot.getConfig(), ctx)
 });

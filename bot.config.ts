@@ -1,4 +1,4 @@
-import { defineConfig } from '.bot/builders/config';
+import { defineConfig } from '.bot/defines/config';
 
 const env = {
   token: process.env.BOT_TOKEN

@@ -11,6 +11,7 @@ export function defineConfig(config: DefineConfig): DefineConfigReturn {
     type: 'config',
     env: defineEnv(),
     admins: [],
+    pathPrefix: false,
 
     ...config
   };
