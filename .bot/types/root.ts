@@ -1,4 +1,11 @@
-import type { DefineCommandReturn, DefineConfigReturn, DefineCronReturn, DefineMiddlewareReturn, DefineViewReturn } from '.bot/types';
+import type {
+  DefineCommandReturn,
+  DefineConfigReturn,
+  DefineCronReturn,
+  DefineCustomReturn,
+  DefineMiddlewareReturn,
+  DefineViewReturn
+} from '.bot/types';
 
 import type { XOR } from '.bot/types/utils';
 
@@ -37,5 +44,6 @@ export type DefineTypes =
   | DefineConfigReturn['type']
   | DefineCommandReturn['type']
   | DefineCronReturn['type']
+  | DefineCustomReturn['type']
   | DefineMiddlewareReturn['type']
   | DefineViewReturn['type'];

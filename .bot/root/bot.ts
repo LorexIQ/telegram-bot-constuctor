@@ -1,11 +1,14 @@
+import type { PollingOptions } from 'grammy';
 import { Bot } from 'grammy';
 import type {
   AppCommands,
   AppCrones,
+  AppCustoms,
   AppMiddlewares,
   AppViews,
   DefineCommandReturn,
   DefineConfigReturn,
+  DefineCustomReturn,
   DefineMiddlewareReturn,
   DefineViewReturn
 } from '.bot/types';
@@ -15,6 +18,7 @@ import { autoImportMiddlewares } from '.bot/autoImports/middlewares';
 import { autoImportCommands } from '.bot/autoImports/commands';
 import { autoImportCrones } from '.bot/autoImports/crones';
 import { autoImportViews } from '.bot/autoImports/views';
+import { autoImportCustoms } from '.bot/autoImports/customs';
 import { LoggerConstructor } from '.bot/root/logger';
 import type { CronJob } from 'cron';
 
@@ -27,6 +31,7 @@ export class BotConstructor extends Bot {
   private readonly commands: AppCommands = {};
   private readonly crones: AppCrones = {};
   private readonly views: AppViews = {};
+  private readonly customs: AppCustoms = {};
 
   constructor() {
     const config = autoImportConfig();
@@ -39,11 +44,20 @@ export class BotConstructor extends Bot {
     autoImportCommands(this);
     autoImportCrones(this);
     autoImportViews(this);
+    autoImportCustoms(this);
 
     this.logger.info('Successfully started!');
   }
 
   /* System */
+
+  async start(options?: PollingOptions): Promise<void> {
+    for (const custom of Object.values(this.customs)) {
+      await custom.fn(this);
+    }
+
+    await super.start(options);
+  }
 
   getConfig() {
     return this.config;
@@ -67,7 +81,7 @@ export class BotConstructor extends Bot {
     return this.middlewares[name];
   }
 
-  /* Middleware */
+  /* Commands */
 
   addCommand(name: string, command: DefineCommandReturn) {
     this.commands[name] = command;
@@ -107,5 +121,19 @@ export class BotConstructor extends Bot {
 
   getViewByName(name: string) {
     return this.views[name];
+  }
+
+  /* Customs */
+
+  addCustom(name: string, custom: DefineCustomReturn) {
+    this.customs[name] = custom;
+  }
+
+  getCustoms() {
+    return this.customs;
+  }
+
+  getCustomByName(name: string) {
+    return this.customs[name];
   }
 }
