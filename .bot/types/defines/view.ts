@@ -1,4 +1,4 @@
-import type { RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types/root';
+import type { OmitMultiple, RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types';
 
 export type DefineView =
   & RootDefinePathPrefix
@@ -6,7 +6,7 @@ export type DefineView =
   };
 export type DefineViewReturn =
   & RootDefinePathPrefixReturn
-  & DefineView
+  & OmitMultiple<DefineView, []>
   & {
     type: 'view';
   };

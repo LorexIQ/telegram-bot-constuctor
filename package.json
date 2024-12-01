@@ -11,19 +11,26 @@
     ".bot": "./dist/.bot"
   },
   "scripts": {
+    "start": "node dist/app.js",
     "build:clean": "rimraf dist",
     "build": "node scripts/build.js",
     "dev": "npm run build:clean && tsc-watch --onSuccess \"node ./dist/app.js\" --onFailure \"echo Compilation Failed!\"",
     "db:mig": "prisma migrate dev",
+    "db:push": "node ./scripts/start.js npx prisma db push",
+    "db:push:force": "node ./scripts/start.js npx prisma db push --force-reset",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
+    "axios": "^1.7.7",
+    "cron": "^3.1.7",
     "dotenv": "^16.4.5",
     "grammy": "^1.30.0",
     "log4js": "^6.9.1",
+    "luxon": "^3.5.0",
     "module-alias": "^2.2.3",
+    "node-localstorage": "^3.0.5",
     "nodemon": "^3.1.6",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0"

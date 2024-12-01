@@ -5,6 +5,14 @@ CREATE TYPE "Languages" AS ENUM ('ru');
 CREATE TYPE "Roles" AS ENUM ('admin', 'user');
 
 -- CreateTable
+CREATE TABLE "LastUserMessage" (
+    "messageId" INTEGER NOT NULL,
+    "chatId" INTEGER NOT NULL,
+
+    CONSTRAINT "LastUserMessage_pkey" PRIMARY KEY ("messageId")
+);
+
+-- CreateTable
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL,
     "firstName" TEXT NOT NULL,
@@ -17,3 +25,9 @@ CREATE TABLE "User" (
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "LastUserMessage_messageId_key" ON "LastUserMessage"("messageId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "LastUserMessage_chatId_key" ON "LastUserMessage"("chatId");

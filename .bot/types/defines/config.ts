@@ -1,4 +1,4 @@
-import type { RootDefinePathPrefixReturn } from '.bot/types/root';
+import type { OmitMultiple, RootDefinePathPrefixReturn } from '.bot/types';
 
 export type DefineConfig = {
   token: string;
@@ -11,7 +11,7 @@ export type DefineConfigEnv = {
 
 export type DefineConfigReturn =
   & RootDefinePathPrefixReturn
-  & DefineConfig
+  & OmitMultiple<DefineConfig, []>
   & {
     type: 'config';
     env: DefineConfigEnv;

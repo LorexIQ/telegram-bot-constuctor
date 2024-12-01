@@ -1,6 +1,5 @@
-import type { DefineCommandReturn } from '.bot/types/command';
-import type { DefineViewReturn } from '.bot/types/view';
-import type { DefineConfigReturn } from '.bot/types/config';
+import type { DefineCommandReturn, DefineConfigReturn, DefineCronReturn, DefineMiddlewareReturn, DefineViewReturn } from '.bot/types';
+
 import type { XOR } from '.bot/types/utils';
 
 export type RootDefinePathPrefix = {
@@ -11,12 +10,12 @@ export type RootDefinePathPrefixReturn = {
   pathPrefix: boolean;
 };
 
-type AutoImporterLoadedReturn<T extends RootDefinePathPrefixReturn> = {
+export type AutoImporterLoadedReturn<T extends RootDefinePathPrefixReturn> = {
   name: string;
   path: string;
   config: T;
 };
-type AutoImporterErrorReturn = {
+export type AutoImporterErrorReturn = {
   path: string;
   error: string;
 };
@@ -25,4 +24,6 @@ export type AutoImporterReturn<T extends RootDefinePathPrefixReturn> = XOR<AutoI
 export type DefineTypes =
   | DefineConfigReturn['type']
   | DefineCommandReturn['type']
+  | DefineCronReturn['type']
+  | DefineMiddlewareReturn['type']
   | DefineViewReturn['type'];

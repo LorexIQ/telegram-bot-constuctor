@@ -10,6 +10,11 @@ model User {
   username String?
 }
 
+model LastUserMessage {
+  messageId Int @id @unique
+  chatId    Int @unique
+}
+
 enum Languages {
   ru
 }

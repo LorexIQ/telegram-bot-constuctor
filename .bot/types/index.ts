@@ -1,5 +1,3 @@
-export * from './command';
-export * from './config';
+export * from './defines';
 export * from './root';
 export * from './utils';
-export * from './view';

@@ -1,9 +1,11 @@
 import fs from 'node:fs';
 import { join } from 'node:path';
-import type { AutoImporterReturn, DefineTypes, RootDefinePathPrefixReturn } from '.bot/types';
+import type { AutoImporterLoadedReturn, AutoImporterReturn, DefineTypes, RootDefinePathPrefixReturn } from '.bot/types';
 
 function filesReader(path: string, deep = false): string[] {
   const paths: string[] = [];
+
+  if (!fs.existsSync(path)) return [];
 
   paths.push(...fs
     .readdirSync(path)
@@ -22,21 +24,24 @@ function filesReader(path: string, deep = false): string[] {
   return paths.filter(filePath => filePath.endsWith('.js'));
 }
 
-export default function<T extends RootDefinePathPrefixReturn>(defineType: DefineTypes, path: string, withErrors = false) {
+export default function test<
+  T extends RootDefinePathPrefixReturn,
+  WE extends boolean = false
+>(defineType: DefineTypes, path: string, withErrors?: WE) {
   const namesCache: string[] = [];
 
-  return filesReader(path, true).map<AutoImporterReturn<T>>((filePath) => {
+  return filesReader(path, true).map((filePath) => {
     const fileLoaded = require(filePath).default as T;
 
     if (fileLoaded?.type !== defineType) return { path: filePath, error: 'connector_is_not_found' };
 
     const prefix = filePath
       .slice(path.length + 1)
-      .split('\\')
+      .split(/[/\\]/)
       .slice(0, -1)
       .map(directory => directory.toLowerCase());
     let name = filePath
-      .split('\\')
+      .split(/[/\\]/)
       .at(-1)!
       .split('.')
       .slice(0, 1)[0]
@@ -54,5 +59,5 @@ export default function<T extends RootDefinePathPrefixReturn>(defineType: Define
     else namesCache.push(name);
 
     return { name, path: filePath, config: fileLoaded };
-  }).filter(segment => withErrors || !segment.error);
+  }).filter(segment => withErrors || !segment.error) as WE extends true ? AutoImporterReturn<T>[] : AutoImporterLoadedReturn<T>[];
 }

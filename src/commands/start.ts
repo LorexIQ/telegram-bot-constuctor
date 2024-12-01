@@ -4,5 +4,6 @@ export default defineCommand({
   description: 'Стартовая команда',
   addToMenu: true,
   isAuthRequired: true,
-  handler: (bot, ctx) => console.log(bot.getConfig(), ctx)
+  middleware: 'speedtest',
+  handler: (bot, ctx) => console.log(bot.getMiddlewares())
 });

@@ -7,6 +7,4 @@ const watchedDirectory = join(__dirname, '..', '..', 'src', 'views');
 
 export function autoImportViews(bot: BotConstructor) {
   const views = autoImporter<DefineViewReturn>('view', watchedDirectory);
-
-  console.log(views);
 }

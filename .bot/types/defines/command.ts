@@ -1,7 +1,7 @@
 import type { BotConstructor } from '.bot/root/bot';
 import type { CommandContext, NextFunction } from 'grammy';
 import type { ContextConstructor } from '.bot/root/context';
-import type { RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types/root';
+import type { OmitMultiple, RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types';
 
 export type DefineCommand =
   & RootDefinePathPrefix
@@ -10,12 +10,14 @@ export type DefineCommand =
     handler: (bot: BotConstructor, ctx: CommandContext<ContextConstructor>, next: NextFunction) => any;
     addToMenu?: boolean;
     isAuthRequired?: boolean;
+    middleware?: string | string[];
   };
 export type DefineCommandReturn =
   & RootDefinePathPrefixReturn
-  & DefineCommand
+  & OmitMultiple<DefineCommand, ['middleware']>
   & {
     type: 'command';
     addToMenu: boolean;
     isAuthRequired: boolean;
+    middleware: string[];
   };

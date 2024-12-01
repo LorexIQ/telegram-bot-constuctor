@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import { PrismaConstructor } from '.bot/root/prisma';
 import { LoggerConstructor } from '.bot/root/logger';
 
-export function main() {
+export async function main() {
   const bot = new BotConstructor();
   const prisma = new PrismaConstructor();
   const logger = new LoggerConstructor('App');
