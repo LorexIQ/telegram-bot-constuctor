@@ -1,5 +1,14 @@
 import { Bot } from 'grammy';
-import type { AppMiddlewares, DefineConfigReturn, DefineMiddlewareReturn } from '.bot/types';
+import type {
+  AppCommands,
+  AppCrones,
+  AppMiddlewares,
+  AppViews,
+  DefineCommandReturn,
+  DefineConfigReturn,
+  DefineMiddlewareReturn,
+  DefineViewReturn
+} from '.bot/types';
 import { ContextConstructor } from '.bot/root/context';
 import { autoImportConfig } from '.bot/autoImports/config';
 import { autoImportMiddlewares } from '.bot/autoImports/middlewares';
@@ -7,6 +16,7 @@ import { autoImportCommands } from '.bot/autoImports/commands';
 import { autoImportCrones } from '.bot/autoImports/crones';
 import { autoImportViews } from '.bot/autoImports/views';
 import { LoggerConstructor } from '.bot/root/logger';
+import type { CronJob } from 'cron';
 
 export class BotConstructor extends Bot {
   private readonly config: DefineConfigReturn;
@@ -14,6 +24,9 @@ export class BotConstructor extends Bot {
   private readonly env = process.env as any;
 
   private readonly middlewares: AppMiddlewares = {};
+  private readonly commands: AppCommands = {};
+  private readonly crones: AppCrones = {};
+  private readonly views: AppViews = {};
 
   constructor() {
     const config = autoImportConfig();
@@ -27,13 +40,10 @@ export class BotConstructor extends Bot {
     autoImportCrones(this);
     autoImportViews(this);
 
-    this.createEvents();
-
-    this.logger.info('Bot successfully started!');
+    this.logger.info('Successfully started!');
   }
 
-  private createEvents() {
-  }
+  /* System */
 
   getConfig() {
     return this.config;
@@ -42,6 +52,8 @@ export class BotConstructor extends Bot {
   getLogger() {
     return this.logger;
   }
+
+  /* Middleware */
 
   addMiddleware(name: string, middleware: DefineMiddlewareReturn) {
     this.middlewares[name] = middleware;
@@ -53,5 +65,47 @@ export class BotConstructor extends Bot {
 
   getMiddlewareByName(name: string) {
     return this.middlewares[name];
+  }
+
+  /* Middleware */
+
+  addCommand(name: string, command: DefineCommandReturn) {
+    this.commands[name] = command;
+  }
+
+  getCommands() {
+    return this.commands;
+  }
+
+  getCommandByName(name: string) {
+    return this.commands[name];
+  }
+
+  /* Crones */
+
+  addCrone(name: string, crone: CronJob) {
+    this.crones[name] = crone;
+  }
+
+  getCrones() {
+    return this.crones;
+  }
+
+  getCroneByName(name: string) {
+    return this.crones[name];
+  }
+
+  /* Views */
+
+  addView(name: string, view: DefineViewReturn) {
+    this.views[name] = view;
+  }
+
+  getViews() {
+    return this.views;
+  }
+
+  getViewByName(name: string) {
+    return this.views[name];
   }
 }

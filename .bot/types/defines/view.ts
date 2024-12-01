@@ -10,3 +10,5 @@ export type DefineViewReturn =
   & {
     type: 'view';
   };
+
+export type AppViews = { [name: string]: DefineViewReturn };

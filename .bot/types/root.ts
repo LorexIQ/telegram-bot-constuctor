@@ -10,14 +10,26 @@ export type RootDefinePathPrefixReturn = {
   pathPrefix: boolean;
 };
 
+type AutoImporterErrors =
+  | 'file_is_not_found'
+  | 'dir_is_not_found'
+  | 'root_index_is_not_supported'
+  | 'name_duplicate'
+  | 'define_is_not_found';
+
 export type AutoImporterLoadedReturn<T extends RootDefinePathPrefixReturn> = {
-  name: string;
+  id: string;
   path: string;
+  fileName: string;
+  name: {
+    snakeCase: string;
+    camelCase: string;
+  };
   config: T;
 };
 export type AutoImporterErrorReturn = {
   path: string;
-  error: string;
+  error: AutoImporterErrors;
 };
 export type AutoImporterReturn<T extends RootDefinePathPrefixReturn> = XOR<AutoImporterLoadedReturn<T>, AutoImporterErrorReturn>;
 

@@ -1,5 +1,6 @@
 import type { OmitMultiple, RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types';
 import type { BotConstructor } from '.bot/root/bot';
+import type { CronJob } from 'cron';
 
 export type DefineCron =
   & RootDefinePathPrefix
@@ -15,3 +16,5 @@ export type DefineCronReturn =
     type: 'cron';
     runOnInit: boolean;
   };
+
+export type AppCrones = { [name: string]: CronJob };

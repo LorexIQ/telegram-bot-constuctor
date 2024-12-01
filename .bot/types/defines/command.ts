@@ -21,3 +21,5 @@ export type DefineCommandReturn =
     isAuthRequired: boolean;
     middleware: string[];
   };
+
+export type AppCommands = { [name: string]: DefineCommandReturn };

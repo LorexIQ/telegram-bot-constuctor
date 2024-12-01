@@ -1,8 +1,8 @@
-import { join } from 'node:path';
+import uPath from '../helpers/uPath';
 import type { DefineConfigReturn } from '.bot/types';
 import autoImporter from '.bot/helpers/autoImporter';
 
-const watchedDirectory = join(__dirname, '..', '..');
+const watchedDirectory = uPath.join(__dirname, '..', '..');
 
 export function autoImportConfig(): DefineConfigReturn {
   const configs = autoImporter<DefineConfigReturn>('config', watchedDirectory, false)
