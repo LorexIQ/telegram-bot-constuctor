@@ -5,6 +5,7 @@ export function defineCommand(config: DefineCommand): DefineCommandReturn {
 
   return {
     type: 'command',
+    command: '',
     addToMenu: false,
     isAuthRequired: false,
     pathPrefix: true,

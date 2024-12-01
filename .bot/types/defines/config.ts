@@ -6,7 +6,7 @@ export type DefineConfig = {
 };
 
 export type DefineConfigEnv = {
-  token?: string;
+  token: string;
 };
 
 export type DefineConfigReturn =

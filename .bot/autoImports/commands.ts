@@ -14,6 +14,7 @@ export function autoImportCommands(bot: BotConstructor) {
 
   commands.forEach((command) => {
     const commandConfig = command.config;
+    if (!commandConfig.command) commandConfig.command = command.name.snakeCase;
     const middlewares = commandConfig.middleware.map((middleware) => {
       const loadedMiddleware = bot.getMiddlewareByName(middleware)?.interceptor.bind(undefined, bot);
 
@@ -24,16 +25,26 @@ export function autoImportCommands(bot: BotConstructor) {
         return emptyMiddleware;
       }
     });
+    const handler = async (ctx: any, next: any) => {
+      await userNotary(bot, ctx, commandConfig.isAuthRequired);
+      await commandConfig.handler(bot, ctx, next);
+    };
+
+    if (typeof commandConfig.command === 'string') {
+      bot.command(
+        commandConfig.command,
+        ...middlewares,
+        handler
+      );
+    } else {
+      bot.hears(
+        commandConfig.command,
+        ...middlewares,
+        handler
+      );
+    }
 
     bot.addCommand(command.name.snakeCase, commandConfig);
-    bot.command(
-      command.name.snakeCase,
-      ...middlewares,
-      async (ctx, next) => {
-        await userNotary(bot, ctx, commandConfig.isAuthRequired);
-        await commandConfig.handler(bot, ctx, next);
-      }
-    );
   });
 
   bot.api.setMyCommands(

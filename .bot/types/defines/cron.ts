@@ -11,7 +11,7 @@ export type DefineCron =
   };
 export type DefineCronReturn =
   & RootDefinePathPrefixReturn
-  & OmitMultiple<DefineCron, []>
+  & OmitMultiple<DefineCron, ['runOnInit']>
   & {
     type: 'cron';
     runOnInit: boolean;
