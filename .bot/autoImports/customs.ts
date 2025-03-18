@@ -11,6 +11,7 @@ export function autoImportCustoms(bot: BotConstructor) {
 
   customs.forEach((custom) => {
     const customConfig = custom.config;
-    bot.addCustom(custom.name.snakeCase, customConfig);
+    customConfig.name = custom.name.snakeCase;
+    bot.addCustom(customConfig.name, customConfig);
   });
 }

@@ -9,6 +9,7 @@ function defineEnv(): DefineConfigEnv {
 export function defineConfig(config: DefineConfig): DefineConfigReturn {
   return {
     type: 'config',
+    name: '',
     env: defineEnv(),
     admins: [],
     pathPrefix: false,

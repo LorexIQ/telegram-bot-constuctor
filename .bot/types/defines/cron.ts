@@ -1,5 +1,5 @@
-import type { OmitMultiple, RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types';
 import type { BotConstructor } from '.bot/root/bot';
+import type { OmitMultiple, RootDefinePathPrefix, RootDefinePathPrefixReturn } from '.bot/types';
 import type { CronJob } from 'cron';
 
 export type DefineCron =

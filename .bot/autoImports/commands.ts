@@ -44,7 +44,8 @@ export function autoImportCommands(bot: BotConstructor) {
       );
     }
 
-    bot.addCommand(command.name.snakeCase, commandConfig);
+    commandConfig.name = command.name.snakeCase;
+    bot.addCommand(commandConfig.name, commandConfig);
   });
 
   bot.api.setMyCommands(

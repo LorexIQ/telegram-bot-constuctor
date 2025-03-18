@@ -11,6 +11,7 @@ export function autoImportViews(bot: BotConstructor) {
 
   views.forEach((view) => {
     const viewConfig = view.config;
-    bot.addView(view.name.snakeCase, viewConfig);
+    viewConfig.name = view.name.snakeCase;
+    bot.addView(viewConfig.name, viewConfig);
   });
 }

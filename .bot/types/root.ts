@@ -1,3 +1,5 @@
+import type { BotConstructor } from '.bot/root/bot';
+import type { ContextConstructor } from '.bot/root/context';
 import type {
   DefineCommandReturn,
   DefineConfigReturn,
@@ -9,11 +11,14 @@ import type {
 
 import type { XOR } from '.bot/types/utils';
 
+export type RootHandler<T = any> = (bot: BotConstructor, ctx: ContextConstructor) => T;
+
 export type RootDefinePathPrefix = {
   pathPrefix?: boolean;
 };
 export type RootDefinePathPrefixReturn = {
   type: string;
+  name: string;
   pathPrefix: boolean;
 };
 

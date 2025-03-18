@@ -8,8 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model StalcraftTPItem {
-  itemId     String @id @unique
-  name       String
-  totalPrice Int
+model BusSetting {
+  id            Int     @id @default(autoincrement())
+  userId        Int
+  ermOrigin     String
+  clockerOrigin String
+  ermToken      String
+  clockerToken  String
+  isReady       Boolean @default(false)
+
+  User User @relation(fields: [userId], references: [id])
 }

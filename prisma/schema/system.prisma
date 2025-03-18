@@ -8,6 +8,8 @@ model User {
 
   lastName String?
   username String?
+
+  BusSetting BusSetting[]
 }
 
 model LastUserMessage {

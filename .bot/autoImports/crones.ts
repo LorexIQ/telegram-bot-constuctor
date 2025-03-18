@@ -13,7 +13,8 @@ export function autoImportCrones(bot: BotConstructor) {
   crones.forEach((cron) => {
     const cronConfig = cron.config;
 
-    bot.addCrone(cron.name.snakeCase, CronJob.from({
+    cronConfig.name = cron.name.snakeCase;
+    bot.addCrone(cronConfig.name, CronJob.from({
       cronTime: cronConfig.time,
       runOnInit: cronConfig.runOnInit,
       onTick: async () => await cronConfig.handler(bot),

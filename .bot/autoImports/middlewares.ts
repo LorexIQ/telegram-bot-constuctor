@@ -14,6 +14,7 @@ export function autoImportMiddlewares(bot: BotConstructor) {
 
     if (middlewareConfig.isGlobal) bot.use(middlewareConfig.interceptor.bind(undefined, bot));
 
-    bot.addMiddleware(middleware.name.snakeCase, middlewareConfig);
+    middlewareConfig.name = middleware.name.snakeCase;
+    bot.addMiddleware(middlewareConfig.name, middlewareConfig);
   });
 }
